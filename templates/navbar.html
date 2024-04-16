@@ -1,0 +1,27 @@
+<script>
+    function validateSearch() {
+        var searchInput = document.getElementById('searchInput'); // Replace 'searchInput' with the actual ID of your search input element
+        if (searchInput.value.trim() === '') {
+            return false; // Prevent form submission
+        }
+        return true; // Allow form submission
+    }
+    </script>
+
+<nav>
+    <form id="searchForm" form action="{% url 'search_results' %}" method="GET" class="search-form">
+        <div class="search-input">
+            <input type="text" name="q" placeholder="Search..." required>
+        </div>
+        <div class="search-button-container">
+            <div class="search-button">
+                <button type="submit">Search</button>
+            </div>
+        </div>
+    </form>
+    <ul>
+        <li><a href="{% url 'home' %}">Home</a></li>
+        <li><a href="{% url 'pdf_upload' %}">Upload PDF</a></li>
+        <li><a href="{% url 'pdf_list' %}">PDF List</a></li>
+    </ul>
+</nav>

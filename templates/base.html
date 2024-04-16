@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Knowledge Base{% endblock %}</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
+</head>
+<body>
+    <header>
+        <h1><a href="{% url 'home' %}">Knowledge Base</a></h1>
+    </header>
+
+    <main>
+        <nav>
+            {% include 'navbar.html' %}
+        </nav>
+        <div class="content">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; {{ year }} York University</p>
+    </footer>
+</body>
+</html>

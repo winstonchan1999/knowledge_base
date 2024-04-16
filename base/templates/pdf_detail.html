@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block title %}{{pdf.title}}{% endblock %}
+
+{% block content %}
+    <h2>{{ pdf.title }}</h2>
+    <p>Uploaded at: {{ pdf.uploaded_at }}</p>
+    <!-- Add a button to download the PDF -->
+    <a href="{% url 'download_pdf' pdf.id %}" download>
+        <button>Download PDF</button>
+    </a>
+    <p><a href="{% url 'pdf_delete' pdf.id %}">Delete PDF</a></p>
+
+    <h3>Chunks:</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Chunk Content</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for chunk in chunks %}
+                <tr>
+                    <td>{{ chunk.id }}</td>
+                    <td><a href="{% url 'chunk_detail' pdf.id chunk.id %}">{{ chunk.content|truncatechars:50 }}</a></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="pagination">
+        <span class="step-links">
+            {% if chunks.has_previous %}
+                <a href="?page=1">&laquo; first</a>
+                <a href="?page={{ chunks.previous_page_number }}">previous</a>
+            {% else %}
+                <span class="disabled">&laquo; first</span>
+                <span class="disabled">previous</span>
+            {% endif %}
+
+            <span class="current-page">
+                Page {{ chunks.number }} of {{ chunks.paginator.num_pages }}
+            </span>
+
+            {% if chunks.has_next %}
+                <a href="?page={{ chunks.next_page_number }}">next</a>
+                <a href="?page={{ chunks.paginator.num_pages }}">last &raquo;</a>
+            {% else %}
+                <span class="disabled">next</span>
+                <span class="disabled">last &raquo;</span>
+            {% endif %}
+        </span>
+    </div>
+
+{% endblock %}
